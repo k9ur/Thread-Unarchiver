@@ -8,4 +8,6 @@ A Discord bot which automatically unarchives threads.
 - Run `node index.js`
 
 ## Usage
-Add the bot to a thread (by pinging it) to get started.
+Invite the bot by replacing `PUT_YOUR_ID_HERE` with your bot's ID: https://discord.com/oauth2/authorize?client_id=PUT_YOUR_ID_HERE&scope=bot&permissions=292057779200 <br>
+Add the bot to a thread (by pinging it) to get started. <br>
+Note that it must be online constantly to work.
