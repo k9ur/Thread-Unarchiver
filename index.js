@@ -12,7 +12,6 @@ let ID = "";
 
 // Start-up
 client.once("ready", c => {
-	console.log("Logged in as", c.user.tag);
 	ID = c.user.id;
 });
 
@@ -29,17 +28,11 @@ client.on("threadUpdate", (oldT, T) => {
 		if(T.unarchivable) {
 			T.setArchived(false, UNARCHIVE_REASON);
 			T.send(UNARCHIVE_MESSAGE);
-
-			console.log("Unarchived thread with ID:", T.id);
-		} else if(T.parent.permissionsFor(GM).has(PermissionsBitField.Flags.SendMessages)) {
+		} else if(T.parent.permissionsFor(GM).has(PermissionsBitField.Flags.SendMessages))
 			T.parent.send(`${NEED_MT_MESSAGE} ${T.toString()}. ${NEED_MT_ALT_MESSAGE}`);
-			console.log("Ignored unarchive, since lacking permission in thread with ID:", T.id);
-		} else console.log("Ignored unarchive... I'm missing quite a few permissions in thread with ID:", T.id);
 
-	} else if(T.parent.permissionsFor(GM).has(PermissionsBitField.Flags.SendMessages)) {
+	} else if(T.parent.permissionsFor(GM).has(PermissionsBitField.Flags.SendMessages))
 		T.parent.send(`${NEED_SMIT_MESSAGE} ${T.toString()}`); // Tell the user the bot can't message there
-		console.log("Ignored unarchive, since lacking permission SendMessagesInThreads in thread with ID:", T.id);
-	} else console.log("Ignored unarchive, since lacking permission to inform user of required permissions in thread with ID:", T.id);
 });
 
 // When the bot is added to a thread
@@ -49,18 +42,12 @@ client.on("threadMembersUpdate", (added, removed, T) => {
 
 	let GM = added.get(ID).guildMember;
 	// Check if bot can message in the thread
-	if(T.sendable) {
+	if(T.sendable)
 		T.send(ADDED_MESSAGE);
-		console.log("Added to thread with ID:", T.id);
-
-	} else if(T.parent.permissionsFor(GM).has(PermissionsBitField.Flags.SendMessages)) {
+	else if(T.parent.permissionsFor(GM).has(PermissionsBitField.Flags.SendMessages))
 		T.parent.send(`${NEED_SMIT_MESSAGE} ${T.toString()}`); // Tell the user the bot can't message there
-		console.log("Added, but no permission to send message in thread with ID:", T.id);
-	} else {
-		// Leave if the bot can't let the user know
-		T.leave();
-		console.log("Added, but no permission to inform user of required permissions in thread with ID:", T.id);
-	}
+	else
+		T.leave(); // Leave if the bot can't let the user know
 });
 
 client.login("TOKEN HERE");
