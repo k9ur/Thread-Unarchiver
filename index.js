@@ -27,7 +27,7 @@ client.on("threadMembersUpdate", (added, removed, T) => {
 		return;
 
 	T.send(ADDED_MESSAGE);
-	console.log("Added to thread with ID:", newT.id);
+	console.log("Added to thread with ID:", T.id);
 });
 
 client.login("TOKEN HERE");
